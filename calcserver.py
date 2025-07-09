@@ -1,4 +1,4 @@
-import socket
+import socket, json
 from calculatorObjServer import Calculator
 
 HOST = '127.0.0.1'
@@ -17,9 +17,12 @@ while True:
     #print(f"Connected to: {address[0]}")
     sign = communication_socket.recv(1024).decode('utf-8')
     print(f"sign: {sign}")
-    num1 = communication_socket.recv(1024).decode('utf-8')
+    nums = communication_socket.recv(1024).decode('utf-8')
+    nums = json.loads(nums)
+    num1 = nums["num1"]
+    num2 = nums["num2"]
     print(f"num1: {num1}")
-    num2 = communication_socket.recv(1024).decode('utf-8')
+    #num2 = communication_socket.recv(1024).decode('utf-8')
     print(f"num2: {num2}")
 
     #print(address + " is trying to " + sign + " with " + num1 + " and " + num2)

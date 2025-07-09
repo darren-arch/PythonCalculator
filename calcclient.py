@@ -1,4 +1,4 @@
-import socket
+import socket, json
 import time
 from calculatorObject import Calculator
 
@@ -14,9 +14,9 @@ while calc.loop:
     calc.set_sign()
     client.send(calc.sign.encode('utf-8'))
     calc.set_nums()
-    client.send(str(calc.num1).encode('utf-8'))
-    time.sleep(1)
-    client.send(str(calc.num2).encode('utf-8'))
+    nums = {"num1": calc.num1, "num2": calc.num2}
+    client.send(json.dumps(nums).encode('utf-8'))
+    #client.send(str(calc.num2).encode('utf-8'))
     print("awaiting server...")
     print(f"Result: {client.recv(1024).decode('utf-8')}")
     #client.close()
